@@ -1,0 +1,4 @@
+export const INPUT_VALUE = " INPUT_VALUE"
+export const ANSWER_VALUE = " ANSWER_VALUE"
+export const PREV_ANSWER_VALUE = " PREV_ANSWER_VALUE"
+export const ERROR_VALUE = " ERROR_VALUE"

@@ -1,0 +1,29 @@
+.Home{
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 10rem;
+    width: 30rem;
+}
+
+.title{
+    text-align: center;
+}
+
+.userName,.password{
+    height: 2rem;
+    margin-bottom: 1rem;
+}
+
+.loginLink{
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid black;
+    background-color: #2a2a72;
+    color: #fff;
+    height: 2rem;
+}
+
+.linkText{
+    text-align: center;
+}
