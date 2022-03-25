@@ -3,6 +3,7 @@ import {
   ANSWER_VALUE,
   ERROR_VALUE,
   PREV_ANSWER_VALUE,
+  CALCULATED_ANSWER_STATUS,
 } from "./calculatorTypes";
 
 export const setInputValue = (inputName) => {
@@ -27,9 +28,15 @@ export const setErrorValue = (errorName) => {
 };
 
 export const setPrevAnswerValue = (prevAnswerValue) => {
-    console.log(prevAnswerValue, '^^^^^^^^^')
   return {
     type: PREV_ANSWER_VALUE,
     payload: prevAnswerValue,
+  };
+};
+
+export const setCalculatedValue = (status) => {
+  return {
+    type: CALCULATED_ANSWER_STATUS,
+    payload: status,
   };
 };

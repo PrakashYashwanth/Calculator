@@ -16,26 +16,43 @@ const Calculator = () => {
   const inputValue = useSelector((state) => state.inputValue);
   const prevAnswerValue = useSelector((state) => state.prevAnswerValue);
 
-  console.log(prevAnswerValue);
-
   const dispatch = useDispatch();
 
   let navigate = useNavigate();
 
   useEffect(() => {
     try {
-      dispatch(setErrorValue(false));
-      dispatch(setAnswerValue(eval(inputValue)));
+      // eslint-disable-next-line no-eval
+      const evaluatedValue = eval(inputValue);
+      if (inputValue !== "0") {
+        dispatch(setErrorValue(false));
+        if (evaluatedValue === Infinity) {
+          dispatch(setAnswerValue("Can't divide a number by zero"));
+        } else dispatch(setAnswerValue(evaluatedValue || answerValue));
+      } else {
+        dispatch(setAnswerValue("0"));
+        dispatch(setInputValue(""));
+      }
     } catch (error) {
       dispatch(setErrorValue(true));
     }
-  }, [inputValue]);
+  }, [dispatch, answerValue, inputValue]);
 
   useEffect(() => {
     if (!sessionStorage.getItem("User_Name")) {
       navigate("/");
     }
   });
+
+  const validateBracket = () => {
+    const openBracketsCount = inputValue.split("(").length - 1;
+    const closingBracketsCount = inputValue.split(")").length - 1;
+    if (openBracketsCount <= closingBracketsCount) {
+      dispatch(setInputValue(`${inputValue}(`));
+    } else {
+      dispatch(setInputValue(`${inputValue})`));
+    }
+  };
 
   return (
     <div>
@@ -62,9 +79,9 @@ const Calculator = () => {
             type="button"
             className="btn clear"
             onClick={() => {
-              console.log(answerValue, "********");
               dispatch(setPrevAnswerValue(answerValue));
               dispatch(setInputValue(""));
+              dispatch(setAnswerValue("0"));
             }}
           >
             AC
@@ -89,7 +106,6 @@ const Calculator = () => {
           >
             ANS
           </button>
-          <button type="button" className="btn styleError"></button>
           <button
             type="button"
             className="btn divide orange"
@@ -118,7 +134,6 @@ const Calculator = () => {
           >
             9
           </button>
-          <button type="button" className="btn styleError"></button>
           <button
             type="button"
             className="btn multiply orange"
@@ -147,7 +162,6 @@ const Calculator = () => {
           >
             6
           </button>
-          <button type="button" className="btn styleError"></button>
           <button
             type="button"
             className="btn subtract orange"
@@ -176,7 +190,6 @@ const Calculator = () => {
           >
             3
           </button>
-          <button type="button" className="btn styleError"></button>
           <button
             type="button"
             className="btn plus orange"
@@ -203,23 +216,18 @@ const Calculator = () => {
           <button
             type="button"
             className="btn bracket"
-            onClick={() => dispatch(setInputValue(`${inputValue}(`))}
+            onClick={() => validateBracket()}
           >
-            (
-          </button>
-          <button
-            type="button"
-            className="btn bracket"
-            onClick={() => dispatch(setInputValue(`${inputValue})`))}
-          >
-            )
+            ()
           </button>
           <button
             type="button"
             className="btn equals orange"
             onClick={() => {
-              dispatch(setInputValue(answerValue));
-              dispatch(setPrevAnswerValue(answerValue));
+              if (!(answerValue === "Can't divide a number by zero")) {
+                dispatch(setInputValue(answerValue));
+                dispatch(setPrevAnswerValue(answerValue));
+              }
             }}
           >
             =

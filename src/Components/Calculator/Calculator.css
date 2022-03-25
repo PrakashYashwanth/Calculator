@@ -1,79 +1,80 @@
 .calculator-container {
-    background: #000000;
-    background: linear-gradient(0deg,#000000,#808080);
-    border-radius: 2rem;
-    box-shadow: 13px 13px 20px #000;
-    color: #fff;
-    display: grid;
-    grid-template-rows: 1fr 4fr 1fr;
-    height: 30rem;
-    width: 30rem;
+  background: #000000;
+  background: linear-gradient(0deg, #000000, #808080);
+  border-radius: 2rem;
+  box-shadow: 13px 13px 20px #000;
+  color: #fff;
+  display: grid;
+  grid-template-rows: 1fr 4fr 1fr;
+  height: 30rem;
+  width: 30rem;
 }
 
-.heading{
-    color: blueviolet;
-    margin-bottom: 10px;
-    text-align: center;
+.heading {
+  color: blueviolet;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 .display {
-    align-items: center;
-    background-color: transparent;
-    color: rgb(56, 8, 8);
-    display: flex;
-    font-size: 2.3rem;
-    justify-content: flex-end;
-    padding-right: 1.5rem;
+  align-items: center;
+  background-color: transparent;
+  color: rgb(56, 8, 8);
+  display: flex;
+  font-size: 2.3rem;
+  justify-content: flex-end;
+  padding-right: 1.5rem;
 }
 
 .hint {
-    align-self: flex-start;
-    font-size: 1.3rem;
-    margin-right: auto;
-    padding: 1.4rem;
+  align-self: flex-start;
+  font-size: 1.3rem;
+  margin-right: auto;
+  padding: 1.4rem;
 }
 
 .total {
-    justify-self: flex-end;
+  justify-self: flex-end;
+  font-size: x-large;
 }
 
 .button-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .btn {
-    background: rgba(0,0,0,.5);
-    font-size: 1.3rem;
+  background: rgba(0, 0, 0, 0.5);
+  font-size: 1.3rem;
 }
 
 button {
-    background: transparent;
-    border: 1px solid transparent;
-    color: #fff;
-    font-family: IBM Plex Sans,sans-serif;
-    font-weight: 600;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #fff;
+  font-family: IBM Plex Sans, sans-serif;
+  font-weight: 600;
 }
 
 .orange {
-    background-color: #FF8000;
+  background-color: #ff8000;
 }
 
 .bottom-container {
-    border-radius: 2rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  border-radius: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .zero {
-    border-bottom-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
 }
 
 .equals {
-    border-bottom-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
 }
 
-.logoutText{
-    text-align: end;
-    color: blueviolet;
+.logoutText {
+  text-align: end;
+  color: blueviolet;
 }

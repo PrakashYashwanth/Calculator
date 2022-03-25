@@ -3,13 +3,15 @@ import {
   ANSWER_VALUE,
   ERROR_VALUE,
   PREV_ANSWER_VALUE,
+  CALCULATED_ANSWER_STATUS,
 } from "./calculatorTypes";
 
 const initialState = {
   inputValue: "",
-  answerValue: 0,
+  answerValue: "0",
   errorExists: false,
-  prevAnswerValue: 0,
+  prevAnswerValue: "0",
+  calculatedValueStatus: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -33,6 +35,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         prevAnswerValue: action.payload,
+      };
+    case CALCULATED_ANSWER_STATUS:
+      return {
+        ...state,
+        calculatedValueStatus: action.payload,
       };
     default:
       return state;
