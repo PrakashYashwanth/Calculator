@@ -24,15 +24,12 @@ const Calculator = () => {
     try {
       // eslint-disable-next-line no-eval
       const evaluatedValue = eval(inputValue);
-      if (inputValue !== "0") {
-        dispatch(setErrorValue(false));
-        if (evaluatedValue === Infinity) {
-          dispatch(setAnswerValue("Can't divide a number by zero"));
-        } else dispatch(setAnswerValue(evaluatedValue || answerValue));
-      } else {
+      dispatch(setErrorValue(false));
+      if (evaluatedValue === Infinity) {
+        dispatch(setAnswerValue("Can't divide a number by zero"));
+      } else if (inputValue === "") {
         dispatch(setAnswerValue("0"));
-        dispatch(setInputValue(""));
-      }
+      } else dispatch(setAnswerValue(evaluatedValue || answerValue));
     } catch (error) {
       dispatch(setErrorValue(true));
     }
@@ -51,6 +48,27 @@ const Calculator = () => {
       dispatch(setInputValue(`${inputValue}(`));
     } else {
       dispatch(setInputValue(`${inputValue})`));
+    }
+  };
+
+  const handleChange = (e) => {
+    const operatorsArray = ["*", "/", "+", "-"];
+    if (
+      operatorsArray.includes(e.target.value) &&
+      (operatorsArray.includes(inputValue.substring(inputValue.length - 1)) ||
+        answerValue === "0")
+    ) {
+      dispatch(
+        setInputValue(
+          `${
+            answerValue === "0"
+              ? "0"
+              : inputValue.slice(0, inputValue.length - 1)
+          }${e.target.value}`
+        )
+      );
+    } else if (!(inputValue === "" && e.target.value === "0")) {
+      dispatch(setInputValue(`${inputValue}${e.target.value}`));
     }
   };
 
@@ -100,100 +118,111 @@ const Calculator = () => {
           <button
             type="button"
             className="btn modulo"
-            onClick={() =>
-              dispatch(setInputValue(`${inputValue}${prevAnswerValue}`))
-            }
+            onClick={() => dispatch(setInputValue(`${prevAnswerValue}`))}
           >
             ANS
           </button>
           <button
             type="button"
             className="btn divide orange"
-            onClick={() => dispatch(setInputValue(`${inputValue}/`))}
+            value={"/"}
+            onClick={(e) => handleChange(e)}
           >
             /
           </button>
           <button
             type="button"
             className="btn seven"
-            onClick={() => dispatch(setInputValue(`${inputValue}7`))}
+            value={"7"}
+            onClick={(e) => handleChange(e)}
           >
             7
           </button>
           <button
             type="button"
             className="btn eight"
-            onClick={() => dispatch(setInputValue(`${inputValue}8`))}
+            value={"8"}
+            onClick={(e) => handleChange(e)}
           >
             8
           </button>
           <button
             type="button"
             className="btn nine"
-            onClick={() => dispatch(setInputValue(`${inputValue}9`))}
+            value={"9"}
+            onClick={(e) => handleChange(e)}
           >
             9
           </button>
           <button
             type="button"
             className="btn multiply orange"
-            onClick={() => dispatch(setInputValue(`${inputValue}*`))}
+            value={"*"}
+            onClick={(e) => handleChange(e)}
           >
             x
           </button>
           <button
             type="button"
             className="btn four"
-            onClick={() => dispatch(setInputValue(`${inputValue}4`))}
+            value={"4"}
+            onClick={(e) => handleChange(e)}
           >
             4
           </button>
           <button
             type="button"
             className="btn five"
-            onClick={() => dispatch(setInputValue(`${inputValue}5`))}
+            value={"5"}
+            onClick={(e) => handleChange(e)}
           >
             5
           </button>
           <button
             type="button"
             className="btn six"
-            onClick={() => dispatch(setInputValue(`${inputValue}6`))}
+            value={"6"}
+            onClick={(e) => handleChange(e)}
           >
             6
           </button>
           <button
             type="button"
             className="btn subtract orange"
-            onClick={() => dispatch(setInputValue(`${inputValue}-`))}
+            value={"-"}
+            onClick={(e) => handleChange(e)}
           >
             -
           </button>
           <button
             type="button"
             className="btn one"
-            onClick={() => dispatch(setInputValue(`${inputValue}1`))}
+            value={"1"}
+            onClick={(e) => handleChange(e)}
           >
             1
           </button>
           <button
             type="button"
             className="btn two"
-            onClick={() => dispatch(setInputValue(`${inputValue}2`))}
+            value={"2"}
+            onClick={(e) => handleChange(e)}
           >
             2
           </button>
           <button
             type="button"
             className="btn three"
-            onClick={() => dispatch(setInputValue(`${inputValue}3`))}
+            value={"3"}
+            onClick={(e) => handleChange(e)}
           >
             3
           </button>
           <button
             type="button"
             className="btn plus orange"
-            onClick={() => dispatch(setInputValue(`${inputValue}+`))}
+            value={"+"}
+            onClick={(e) => handleChange(e)}
           >
             +
           </button>
@@ -202,14 +231,16 @@ const Calculator = () => {
           <button
             type="button"
             className="btn zero"
-            onClick={() => dispatch(setInputValue(`${inputValue}0`))}
+            value={"0"}
+            onClick={(e) => handleChange(e)}
           >
             0
           </button>
           <button
             type="button"
             className="btn decimal"
-            onClick={() => dispatch(setInputValue(`${inputValue}.`))}
+            value={"."}
+            onClick={(e) => handleChange(e)}
           >
             .
           </button>
@@ -225,8 +256,8 @@ const Calculator = () => {
             className="btn equals orange"
             onClick={() => {
               if (!(answerValue === "Can't divide a number by zero")) {
-                dispatch(setInputValue(answerValue));
-                dispatch(setPrevAnswerValue(answerValue));
+                dispatch(setInputValue(`${answerValue}`));
+                dispatch(setPrevAnswerValue(`${answerValue}`));
               }
             }}
           >

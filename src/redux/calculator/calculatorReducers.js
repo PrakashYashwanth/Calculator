@@ -11,7 +11,7 @@ const initialState = {
   answerValue: "0",
   errorExists: false,
   prevAnswerValue: "0",
-  calculatedValueStatus: false,
+  calculatedAnswerStatus: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -39,7 +39,7 @@ const reducer = (state = initialState, action) => {
     case CALCULATED_ANSWER_STATUS:
       return {
         ...state,
-        calculatedValueStatus: action.payload,
+        calculatedAnswerStatus: action.payload,
       };
     default:
       return state;
