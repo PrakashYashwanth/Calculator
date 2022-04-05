@@ -12,7 +12,6 @@
 
 .heading {
   color: blueviolet;
-  margin-bottom: 10px;
   text-align: center;
 }
 
@@ -77,4 +76,5 @@ button {
 .logoutText {
   text-align: end;
   color: blueviolet;
+  margin: 0;
 }

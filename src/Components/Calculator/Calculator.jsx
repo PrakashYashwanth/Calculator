@@ -8,6 +8,7 @@ import {
   setAnswerValue,
   setErrorValue,
   setPrevAnswerValue,
+  setCalculatedValue,
 } from "../../redux/calculator/calculatorActions";
 
 const Calculator = () => {
@@ -15,11 +16,13 @@ const Calculator = () => {
   const answerValue = useSelector((state) => state.answerValue);
   const inputValue = useSelector((state) => state.inputValue);
   const prevAnswerValue = useSelector((state) => state.prevAnswerValue);
+  const calculatedAnswerStatus = useSelector(
+    (state) => state.calculatedAnswerStatus
+  );
 
   const dispatch = useDispatch();
 
   let navigate = useNavigate();
-
   useEffect(() => {
     try {
       // eslint-disable-next-line no-eval
@@ -33,6 +36,7 @@ const Calculator = () => {
     } catch (error) {
       dispatch(setErrorValue(true));
     }
+    dispatch(setCalculatedValue(false));
   }, [dispatch, answerValue, inputValue]);
 
   useEffect(() => {
@@ -67,6 +71,8 @@ const Calculator = () => {
           }${e.target.value}`
         )
       );
+    } else if (inputValue === "0" && e.target.value !== 0) {
+      dispatch(setInputValue(`${e.target.value}`));
     } else if (!(inputValue === "" && e.target.value === "0")) {
       dispatch(setInputValue(`${inputValue}${e.target.value}`));
     }
@@ -86,6 +92,13 @@ const Calculator = () => {
       <div className="heading">
         <h1>Calculator</h1>
       </div>
+      <ul>
+        <div style={{ display: "flex" }}>
+          <li style={{ flex: "1" }}>AC - Clear All</li>
+          <li style={{ flex: "1" }}>Del - Clear Single Item</li>
+        </div>
+        <li>ANS - Previous Answer</li>
+      </ul>
       <div className="calculator-container">
         <div className="display" id="display">
           <span className="hint">{inputValue}</span>
@@ -97,7 +110,9 @@ const Calculator = () => {
             type="button"
             className="btn clear"
             onClick={() => {
-              dispatch(setPrevAnswerValue(answerValue));
+              if (calculatedAnswerStatus) {
+                dispatch(setPrevAnswerValue(answerValue));
+              }
               dispatch(setInputValue(""));
               dispatch(setAnswerValue("0"));
             }}
@@ -258,6 +273,7 @@ const Calculator = () => {
               if (!(answerValue === "Can't divide a number by zero")) {
                 dispatch(setInputValue(`${answerValue}`));
                 dispatch(setPrevAnswerValue(`${answerValue}`));
+                dispatch(setCalculatedValue(true));
               }
             }}
           >
